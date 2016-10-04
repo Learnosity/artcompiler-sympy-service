@@ -1,9 +1,11 @@
 #!flask/bin/python
 
+from __future__ import print_function # In python 2.7
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask.ext.httpauth import HTTPBasicAuth
 from sympy import *
 from sympy.abc import x, y
+import sys
 
 app = Flask(__name__, static_url_path = "")
 auth = HTTPBasicAuth()
@@ -51,9 +53,12 @@ def make_public_task(task):
             new_task[field] = task[field]
     return new_task
 
-@app.route('/api/v1/math', methods = ['GET'])
-def get_math():
-    return jsonify(str(x + y + x))
+@app.route('/api/v1/eval', methods = ['GET'])
+def get_eval():
+    obj = request.json
+    func = obj["func"]
+    expr = obj["expr"]
+    return jsonify(str(simplify(expr)))
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods = ['GET'])
 @auth.login_required
