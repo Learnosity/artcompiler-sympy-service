@@ -53,9 +53,7 @@ def make_public_task(task):
 
 @app.route('/api/v1/math', methods = ['GET'])
 def get_math():
-    return jsonify( {
-        'tasks': str(x + y + x)
-    } )
+    return jsonify(str(x + y + x))
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods = ['GET'])
 @auth.login_required
