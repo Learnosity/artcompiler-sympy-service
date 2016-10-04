@@ -53,12 +53,20 @@ def make_public_task(task):
             new_task[field] = task[field]
     return new_task
 
-@app.route('/api/v1/eval', methods = ['GET'])
-def get_eval():
-    obj = request.json
+def eval_math(obj):
     func = obj["func"]
     expr = obj["expr"]
-    return jsonify(latex(simplify(expr)))
+    if func == "simplify":
+        return simplify(expr)
+    elif func == "expand":
+        return expand(expr)
+    elif func == "factor":
+        return factor(expr)
+    return "error";
+
+@app.route('/api/v1/eval', methods = ['GET'])
+def get_eval():
+    return jsonify(latex(eval_math(request.json)))
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods = ['GET'])
 @auth.login_required
