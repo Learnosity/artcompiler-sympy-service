@@ -58,7 +58,7 @@ def get_eval():
     obj = request.json
     func = obj["func"]
     expr = obj["expr"]
-    return jsonify(str(simplify(expr)))
+    return jsonify(latex(simplify(expr)))
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods = ['GET'])
 @auth.login_required
