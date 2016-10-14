@@ -62,6 +62,8 @@ def eval_math(obj):
         return expand(expr)
     elif func == "factor":
         return factor(expr)
+    elif func == "eval":
+        return eval(compile(expr))
     return "error";
 
 @app.route('/api/v1/eval', methods = ['GET'])
