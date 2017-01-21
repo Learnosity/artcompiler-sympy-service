@@ -64,11 +64,16 @@ def eval_math(obj):
         return factor(expr)
     elif func == "eval":
         return eval(expr)
+    elif func == "latex":
+        return latex(sympify(expr))
+    elif func == "literal":
+        return expr
     return "error";
 
 @app.route('/api/v1/eval', methods = ['GET'])
 def get_eval():
-    return jsonify(latex(eval_math(request.json)))
+#    return jsonify(latex(eval_math(request.json)))
+    return jsonify(str(eval_math(request.json)))
 
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods = ['GET'])
 @auth.login_required
