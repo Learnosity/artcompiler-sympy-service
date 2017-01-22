@@ -65,8 +65,7 @@ def eval_math(obj):
     elif func == "eval":
         return eval(expr)
     elif func == "latex":
-#        return latex(sympify(expr, evaluate=False))
-        return latex(parse_expr(expr, evaluate=False))
+        return latex(sympify(expr, evaluate=False))
     elif func == "literal":
         return expr
     return "error";
