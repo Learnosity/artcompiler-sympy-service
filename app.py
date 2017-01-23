@@ -57,13 +57,13 @@ def eval_math(obj):
     func = obj["func"]
     expr = obj["expr"]
     if func == "simplify":
-        return simplify(expr)
+        return latex(simplify(expr))
     elif func == "expand":
-        return expand(expr)
+        return latex(expand(expr))
     elif func == "factor":
-        return factor(expr)
+        return latex(factor(expr))
     elif func == "eval":
-        return eval(expr)
+        return latex(eval(expr))
     elif func == "latex":
         return latex(sympify(expr, evaluate=False))
     elif func == "literal":
