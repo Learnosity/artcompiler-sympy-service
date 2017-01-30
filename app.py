@@ -2,7 +2,7 @@
 
 from __future__ import print_function # In python 2.7
 from flask import Flask, jsonify, abort, request, make_response, url_for
-from flask.ext.httpauth import HTTPBasicAuth
+from flask_httpauth import HTTPBasicAuth
 from sympy import *
 from sympy.abc import x, y
 import sys
