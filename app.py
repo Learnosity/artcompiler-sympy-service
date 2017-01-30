@@ -10,16 +10,16 @@ import sys
 app = Flask(__name__, static_url_path = "")
 auth = HTTPBasicAuth()
 
-@auth.get_password
-def get_password(username):
-    if username == 'art':
-        return 'compiler'
-    return None
+# @auth.get_password
+# def get_password(username):
+#     if username == 'art':
+#         return 'compiler'
+#     return None
 
-@auth.error_handler
-def unauthorized():
-    return make_response(jsonify( { 'error': 'Unauthorized access' } ), 403)
-    # return 403 instead of 401 to prevent browsers from displaying the default auth dialog
+# @auth.error_handler
+# def unauthorized():
+#     return make_response(jsonify( { 'error': 'Unauthorized access' } ), 403)
+#     # return 403 instead of 401 to prevent browsers from displaying the default auth dialog
 
 @app.errorhandler(400)
 def not_found(error):
