@@ -1,11 +1,7 @@
-click==6.6
-Flask==0.11.1
+Flask==0.12
 Flask-HTTPAuth==3.2.1
 gunicorn==19.6.0
-itsdangerous==0.24
-Jinja2==2.8
 jsonify==0.5
-MarkupSafe==0.23
 mpmath==0.19
 setupfiles==0.0.13
 sympy==1.0
