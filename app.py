@@ -1,3 +1,5 @@
+# Copyright (c) 2016, Art Compiler LLC
+
 #!flask/bin/python
 
 from __future__ import print_function # In python 2.7
