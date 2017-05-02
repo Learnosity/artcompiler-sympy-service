@@ -18,6 +18,7 @@ def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
 def eval_math(obj):
+    print(str(obj))
     func = obj["func"]
     expr = obj["expr"]
     if func == "eval":
