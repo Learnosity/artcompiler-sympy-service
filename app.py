@@ -2,12 +2,14 @@
 
 #!flask/bin/python
 
-from __future__ import print_function # In python 2.7
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from sympy import *
 import sys
 
 app = Flask(__name__, static_url_path = "")
+
+import platform
+print(platform.python_version())
 
 @app.errorhandler(400)
 def not_found(error):
