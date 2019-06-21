@@ -4,6 +4,7 @@
 
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from sympy import *
+from sympy.simplify.fu import *
 import sys
 
 app = Flask(__name__, static_url_path = "")
