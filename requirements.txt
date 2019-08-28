@@ -1,7 +1,7 @@
-Flask==0.12
-Flask-HTTPAuth==3.2.1
-gunicorn==19.6.0
+Flask==1.1.1
+Flask-HTTPAuth==3.3.0
+gunicorn==19.9.0
 jsonify==0.5
-mpmath==0.19
+mpmath==1.1.0
 sympy==1.4
-Werkzeug==0.11.11
+Werkzeug==0.15.5
