@@ -31,7 +31,7 @@ def eval_math(obj):
         return latex(sympify(expr, evaluate=False))
     elif func == "literal":
         return expr
-    return "error";
+    return "error"
 
 @app.route('/api/v1/eval', methods = ['GET'])
 def get_eval():
