@@ -1,13 +1,13 @@
 default: run
 
 run:
-	python flask_app.py
+	python3 flask_app.py
 
 install:
-	pip install -r requirements.txt --target ./package
+	pip3 install -r requirements.txt --target ./package
+	(cd package && zip -r ../function.zip .)
 
 zip:
-	(cd package && zip -r ../function.zip .)
 	zip -g function.zip lambda_function.py
 	zip -g function.zip app.py
 
@@ -25,7 +25,11 @@ init: install zip
 		--zip-file fileb://function.zip \
 		--role arn:aws:iam::534897478838:role/lambda-sympy-service || true
 
-deploy: install zip
+update-function-code: zip
 	aws lambda update-function-code \
 		--function-name sympy-service \
 		--zip-file fileb://function.zip
+
+deploy: update-function-code
+
+deploy-full: install update-function-code
