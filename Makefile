@@ -1,14 +1,15 @@
 default: run
 
 run:
-	python3 app.py
+	python flask_app.py
 
 install:
-	pip3 install -r requirements.txt --target ./package
+	pip install -r requirements.txt --target ./package
 
 zip:
 	(cd package && zip -r ../function.zip .)
 	zip -g function.zip lambda_function.py
+	zip -g function.zip app.py
 
 init: install zip
 	aws iam create-role \
