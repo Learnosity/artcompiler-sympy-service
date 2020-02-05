@@ -41,6 +41,7 @@ def handler(event, context):
         else:
             func = None
 
+        logger.info(body[EXPR_KEY])
         if EXPR_KEY in body and body[EXPR_KEY]:
             expr = body[EXPR_KEY]
         elif EXPR_KEY in queryParams and queryParams[EXPR_KEY]:
@@ -49,6 +50,7 @@ def handler(event, context):
             expr = None
 
         result = eval_math({FUNC_KEY: func, EXPR_KEY: expr})
+        logger.info(result)
         return convert_to_http_response(200, result)
     except ValueError as e:
         return convert_to_http_response(400, {'errors': e.args})

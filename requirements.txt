@@ -3,5 +3,5 @@ Flask-HTTPAuth==3.3.0
 gunicorn==19.9.0
 jsonify==0.5
 mpmath==1.1.0
-sympy==1.5
+git+https://github.com/meganly/sympy@17648_DecimalRationalclass#egg=sympy
 Werkzeug==0.15.5
