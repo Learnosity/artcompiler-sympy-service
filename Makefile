@@ -1,16 +1,17 @@
 default: run
 
 run:
-	python3 app.py
+	python3 flask_app.py
 
-initinstall:
-	pip3 install --target ./package flask sympy
+install:
+	pip3 install -r requirements.txt --target ./package
+	(cd package && zip -r ../function.zip .)
 
 zip:
-	(cd package && zip -r ../function.zip .)
 	zip -g function.zip lambda_function.py
+	zip -g function.zip app.py
 
-init: initinstall zip
+init: install zip
 	aws iam create-role \
 		--role-name lambda-sympy-service \
 		--assume-role-policy-document file://trust-policy.json || true
@@ -22,9 +23,13 @@ init: initinstall zip
 		--runtime python3.8 \
 		--handler lambda_function.handler \
 		--zip-file fileb://function.zip \
-		--role arn:aws:iam::903691265300:role/lambda-sympy-service || true
+		--role arn:aws:iam::534897478838:role/lambda-sympy-service || true
 
-deploy: zip
+update-function-code: zip
 	aws lambda update-function-code \
 		--function-name sympy-service \
 		--zip-file fileb://function.zip
+
+deploy: update-function-code
+
+deploy-full: install update-function-code

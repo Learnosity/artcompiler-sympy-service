@@ -1,41 +1,31 @@
 # Copyright (c) 2019, Art Compiler LLC
 
-#!flask/bin/python
+from sympy import latex
+from sympy import sympify
 
-from flask import Flask, jsonify, abort, request, make_response, url_for
-from sympy import *
-from sympy.simplify.fu import *
-import sys
+FUNC_WHITELIST = [
+    'eval',
+    'latex',
+    'literal',
+]
 
-app = Flask(__name__, static_url_path = "")
-
-import platform
-print(platform.python_version())
-
-@app.errorhandler(400)
-def not_found(error):
-    return make_response(jsonify( { 'error': 'Bad request' } ), 400)
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
 def eval_math(obj):
-    print(str(obj))
-    func = obj["func"]
-    expr = obj["expr"]
-    if func == "eval":
-        kwargs = {"ln_notation": "True", "inv_trig_style": "power"}
+    if 'func' not in obj:
+        raise ValueError('must provide func')
+    func = obj['func']
+    if func not in FUNC_WHITELIST:
+        raise ValueError('func must be eval, latex, or literal')
+
+    if 'expr' not in obj:
+        raise ValueError('must provide expr')
+    expr = obj['expr']
+
+    if func == 'eval':
+        kwargs = {'ln_notation': 'True', 'inv_trig_style': 'power'}
         return latex(eval(expr), **kwargs)
-    elif func == "latex":
+    elif func == 'latex':
         return latex(sympify(expr, evaluate=False))
-    elif func == "literal":
+    elif func == 'literal':
         return expr
-    return "error"
-
-@app.route('/api/v1/eval', methods = ['GET'])
-def get_eval():
-    return jsonify(str(eval_math(request.json)))
-
-if __name__ == '__main__':
-    app.run(debug = True)
+    return 'error'
