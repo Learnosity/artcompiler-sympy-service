@@ -10,7 +10,6 @@ FUNC_WHITELIST = [
     'literal',
 ]
 
-
 def eval_math(obj):
     if 'func' not in obj:
         raise ValueError('must provide func')

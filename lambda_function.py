@@ -14,7 +14,7 @@ logger.setLevel(logging.INFO)
 def convert_to_http_response(status_code, data=None):
     return {
         'statusCode': status_code,
-        'body': data,
+        'body': json.dumps(data),
     }
 
 
