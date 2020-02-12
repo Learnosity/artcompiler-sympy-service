@@ -3,5 +3,5 @@ Flask-HTTPAuth==3.3.0
 gunicorn==19.9.0
 jsonify==0.5
 mpmath==1.1.0
--e git+https://github.com/meganly/sympy@b5cb3877afa9a96171194d2a4a12e0ea50ac898a#egg=sympy
+git+https://github.com/meganly/sympy@b5cb3877afa9a96171194d2a4a12e0ea50ac898a#egg=sympy
 Werkzeug==0.15.5

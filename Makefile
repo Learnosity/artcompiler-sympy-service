@@ -26,9 +26,7 @@ init: install zip
 		--role arn:aws:iam::534897478838:role/lambda-sympy-service || true
 
 update-function-code: zip
-	aws lambda update-function-code \
-		--function-name sympy-service \
-		--zip-file fileb://function.zip
+	aws lambda update-function-code --function-name sympy-service --zip-file fileb://function.zip
 
 deploy: update-function-code
 
