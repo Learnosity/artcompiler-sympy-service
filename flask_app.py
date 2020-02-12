@@ -34,6 +34,5 @@ def get_eval():
         expr = request.json[EXPR_KEY]
     return jsonify(str(eval_math({FUNC_KEY: func, EXPR_KEY: expr})))
 
-
 if __name__ == '__main__':
     app.run(debug=True)
