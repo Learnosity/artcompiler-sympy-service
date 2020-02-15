@@ -7,20 +7,25 @@ from flask import Flask
 from flask import jsonify
 from flask import make_response
 from flask import request
-
 FUNC_KEY = 'func'
 EXPR_KEY = 'expr'
 
 app = Flask(__name__, static_url_path="")
 
 
+@app.errorhandler(Exception)
+def handle_exception(error):
+    # Most likely something wrong with the SymPy code.
+    print('ERROR: ' + str(error))
+    return make_response(jsonify({'error': str(error)}), 400)
+
 @app.errorhandler(400)
-def not_found(error):
+def handle_bad_request(error):
     return make_response(jsonify({'error': 'Bad request'}), 400)
 
 
 @app.errorhandler(404)
-def not_found(error):
+def handle_not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
