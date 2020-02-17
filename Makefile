@@ -4,7 +4,7 @@ run:
 	python3 flask_app.py
 
 install:
-	pip3 install -r requirements.txt --target ./package
+	pip3 install -r requirements-lambda.txt --target ./package
 	(cd package && zip -r ../function.zip .)
 
 zip:
