@@ -22,6 +22,7 @@ def eval_math(obj):
     expr = obj['expr']
 
     if func == 'eval':
+        print(str(expr))
         kwargs = {'ln_notation': 'True', 'inv_trig_style': 'power'}
         return latex(eval(expr), **kwargs)
     elif func == 'latex':
