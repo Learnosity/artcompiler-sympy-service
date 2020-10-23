@@ -1,7 +1,8 @@
 # Copyright (c) 2019, Art Compiler LLC
 
-from sympy import *
+from sympy.physics.units import *
 from sympy.simplify.fu import *
+from sympy import *
 
 
 FUNC_WHITELIST = [
