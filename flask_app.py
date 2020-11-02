@@ -40,4 +40,4 @@ def get_eval():
     return jsonify(str(eval_math({FUNC_KEY: func, EXPR_KEY: expr})))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
