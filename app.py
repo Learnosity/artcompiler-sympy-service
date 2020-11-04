@@ -1,7 +1,9 @@
 # Copyright (c) 2019, Art Compiler LLC
 
-from sympy.physics.units import *
-from sympy.simplify.fu import *
+from sympy.physics import units as u
+from sympy.physics.units import convert_to
+from sympy.functions.elementary.hyperbolic import HyperbolicFunction
+from sympy.simplify.fu import TR1, TR2, TR6, TR11, TR22
 from sympy import *
 
 
