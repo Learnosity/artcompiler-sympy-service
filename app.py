@@ -2,10 +2,13 @@
 
 from sympy.physics import units as u
 from sympy.physics.units import convert_to
+from sympy.vector import StdCoordSys3D, Vector, VectorZero, matrix_to_vector
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction
 from sympy.simplify.fu import TR1, TR2, TR6, TR11, TR22
 from sympy import *
 
+R3 = StdCoordSys3D('R3')
+VectorZero._latex_form = r'\mathbf{0}'
 
 FUNC_WHITELIST = [
     'eval',
