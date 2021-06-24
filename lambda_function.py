@@ -58,5 +58,3 @@ def handler(event, context):
         logger.error('Failed with unknown exception: %s', e.args)
         return convert_to_http_response(500, {'errors': e.args})
 
-
-# print(handler({'body': '{"func":"eval","expr":"1+2"}'}, {}))
