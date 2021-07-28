@@ -44,6 +44,7 @@ def eval_math_async(func, expr, timeout):
     result = parent_conn.recv();
     p.join(timeout)  # Kill process after timeout seconds.
     if p.is_alive():
+        print(f'Process killed. timeout={timeout}')
         result = None
     p.kill()
     processCount = processCount - 1
