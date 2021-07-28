@@ -36,6 +36,7 @@ def call_async(func, expr, conn):
 
 processCount = 0
 def eval_math_async(func, expr, timeout):
+    print(f'timeout={timeout}')
     global processCount
     parent_conn, child_conn = Pipe()
     p = Process(target=call_async, name="Math", args=(func, expr, child_conn))
