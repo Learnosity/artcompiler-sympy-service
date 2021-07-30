@@ -34,20 +34,13 @@ def call_async(func, expr, conn):
     result = eval_math({FUNC_KEY: func, EXPR_KEY: expr})
     conn.send(result)
 
-processCount = 0
 def eval_math_async(func, expr, timeout):
-    global processCount
-    parent_conn, child_conn = Pipe()
+    parent_conn, child_conn = Pipe(False)
     p = Process(target=call_async, name="Math", args=(func, expr, child_conn))
-    processCount = processCount + 1
     p.start()
     result = parent_conn.recv();
-    p.join(timeout)  # Kill process after timeout seconds.
-    if p.is_alive():
-        print(f'Process killed. timeout={timeout} result={result}')
-        result = None
+    p.join(timeout)  # Abort process after timeout seconds.
     p.kill()
-    processCount = processCount - 1
     return result
 
 @app.route('/api/v1/eval', methods=['GET'])
