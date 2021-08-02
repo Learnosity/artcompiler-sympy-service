@@ -38,7 +38,7 @@ def eval_math_async(func, expr, timeout):
     parent_conn, child_conn = Pipe(False)
     p = Process(target=call_async, name="Math", args=(func, expr, child_conn))
     p.start()
-    result = parent_conn.recv();
+    result = parent_conn.recv()
     p.join(timeout)  # Abort process after timeout seconds.
     p.kill()
     return result
