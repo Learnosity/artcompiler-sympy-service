@@ -23,16 +23,25 @@ def handle_exception(error):
 
 @app.errorhandler(400)
 def handle_bad_request(error):
-    return make_response(jsonify({'error': 'Bad request'}), 400)
+    return make_response(jsonify({'error': error}), 400)
 
 
 @app.errorhandler(404)
 def handle_not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+def convert_to_http_response(status_code, data=None):
+    return {
+        'statusCode': status_code,
+        'body': json.dumps(data),
+    }
+
 def call_async(func, expr, conn):
-    result = eval_math({FUNC_KEY: func, EXPR_KEY: expr})
-    conn.send(result)
+    try:
+        result = eval_math({FUNC_KEY: func, EXPR_KEY: expr})
+        conn.send(result)
+    except Exception as e:
+        conn.send(e)
 
 def eval_math_async(func, expr, timeout):
     parent_conn, child_conn = Pipe(False)
@@ -45,22 +54,30 @@ def eval_math_async(func, expr, timeout):
 
 @app.route('/api/v1/eval', methods=['GET'])
 def get_eval():
-    func = request.args.get(FUNC_KEY)
-    if not func and FUNC_KEY in request.json:
-        func = request.json[FUNC_KEY]
-    expr = request.args.get(EXPR_KEY)
-    if not expr and EXPR_KEY in request.json:
-        expr = request.json[EXPR_KEY]
-    timeout = request.args.get(TIMEOUT_KEY)
-    if not timeout and TIMEOUT_KEY in request.json:
-        timeout = request.json[TIMEOUT_KEY]
-    if not timeout:
-        timeout = 30  # Default timeout is 30 seconds.
-    result = eval_math_async(func, expr, timeout)
-    if result == None:
-        return handle_exception(f'Timeout of {timeout} seconds exceeded in SymPy.')
-    else:
-        return jsonify(str(result))
+    try:
+        func = request.args.get(FUNC_KEY)
+        if not func and FUNC_KEY in request.json:
+            func = request.json[FUNC_KEY]
+        expr = request.args.get(EXPR_KEY)
+        if not expr and EXPR_KEY in request.json:
+            expr = request.json[EXPR_KEY]
+        timeout = request.args.get(TIMEOUT_KEY)
+        if not timeout and TIMEOUT_KEY in request.json:
+            timeout = request.json[TIMEOUT_KEY]
+        if not timeout:
+            timeout = 30  # Default timeout is 30 seconds.
+        result = eval_math_async(func, expr, timeout)
+        if result == None:
+            return handle_exception(f'Timeout of {timeout} seconds exceeded in SymPy.')
+        else:
+            return jsonify(str(result))
+    except ValueError as e:
+        return handle_bad_request(400, e.args)
+    except Exception as e:
+        logger.error('Failed with unknown exception: %s', e.args)
+        return handle_exception(e.args)
 
+
+    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
