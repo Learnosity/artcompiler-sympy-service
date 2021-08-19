@@ -39,9 +39,9 @@ def convert_to_http_response(status_code, data=None):
 def call_async(func, expr, conn):
     try:
         result = eval_math({FUNC_KEY: func, EXPR_KEY: expr})
-        conn.send(result)
+        conn.send({'error': None, 'data': result})
     except Exception as e:
-        conn.send(e)
+        conn.send({'error': e})
 
 def eval_math_async(func, expr, timeout):
     parent_conn, child_conn = Pipe(False)
@@ -49,6 +49,9 @@ def eval_math_async(func, expr, timeout):
     p.start()
     result = parent_conn.recv()
     p.join(timeout)  # Abort process after timeout seconds.
+    if p.is_alive():
+        print(f'timeout {timeout} reached')
+        result = {'error': f'Timeout in {timeout} seconds in sympy-service'};
     p.kill()
     return result
 
@@ -67,17 +70,17 @@ def get_eval():
         if not timeout:
             timeout = 30  # Default timeout is 30 seconds.
         result = eval_math_async(func, expr, timeout)
-        if result == None:
-            return handle_exception(f'Timeout of {timeout} seconds exceeded in SymPy.')
+        if result['error']:
+            return handle_bad_request(str(result['error']))
         else:
-            return jsonify(str(result))
+            return jsonify(str(result['data']))
     except ValueError as e:
-        return handle_bad_request(400, e.args)
+        return handle_bad_request(e.args)
     except Exception as e:
-        logger.error('Failed with unknown exception: %s', e.args)
+        print('Failed with unknown exception: ' + str(e.args))
         return handle_exception(e.args)
 
 
     
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=8000)
