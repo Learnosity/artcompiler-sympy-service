@@ -2,6 +2,7 @@
 
 #!flask/bin/python
 
+import time
 from multiprocessing import Process, Pipe
 from app import eval_math
 from flask import Flask
@@ -45,13 +46,15 @@ def call_async(func, expr, conn):
 
 def eval_math_async(func, expr, timeout):
     parent_conn, child_conn = Pipe(False)
+    t0 = time.time()
     p = Process(target=call_async, name="Math", args=(func, expr, child_conn))
     p.start()
     result = parent_conn.recv()
     p.join(timeout)  # Abort process after timeout seconds.
-    if p.is_alive():
+    t1 = time.time()
+    if t1 - t0 > timeout:
         print(f'timeout {timeout} reached')
-        result = {'error': f'Timeout in {timeout} seconds in sympy-service'};
+        result = {'error': f'Timeout for sympy-service of {timeout} seconds exceeded.'};
     p.kill()
     return result
 
