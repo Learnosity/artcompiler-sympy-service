@@ -83,7 +83,5 @@ def get_eval():
         print('Failed with unknown exception: ' + str(e.args))
         return handle_exception(e.args)
 
-
-    
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
