@@ -1,12 +1,22 @@
 # Copyright (c) 2019, Art Compiler LLC
 
-from sympy.physics import units as u
-from sympy.physics.units import convert_to
+from pint import UnitRegistry
+from sympy.physics.units import *
 from sympy.vector import StdCoordSys3D, Vector, VectorZero, matrix_to_vector
+from sympy.matrices import ImmutableMatrix, Matrix
+from sympy.integrals import Integral, normalize_integral
+from sympy.sets import *
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction
+from sympy.functions import *
 from sympy.simplify.fu import TR1, TR2, TR6, TR11, TR22
-from sympy import *
+from sympy.simplify import powsimp
+from sympy.geometry.polygon import rad
+from sympy.polys import factor, together
+from sympy.core import *
+from sympy.printing import latex
 
+unit = UnitRegistry(autoconvert_offset_to_baseunit = True)
+Q_ = unit.Quantity
 R3 = StdCoordSys3D('R3')
 VectorZero._latex_form = r'\mathbf{0}'
 
