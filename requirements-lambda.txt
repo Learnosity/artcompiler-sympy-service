@@ -4,4 +4,5 @@ gunicorn==19.9.0
 jsonify==0.5
 mpmath==1.1.0
 git+https://github.com/meganly/sympy@f87d67e9f0555270e3d601d6d1ed6fb512a5300e#egg=sympy
+Pint==0.18
 Werkzeug==0.15.5
