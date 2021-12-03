@@ -4,13 +4,14 @@ from pint import UnitRegistry
 from sympy.physics.units import *
 from sympy.vector import StdCoordSys3D, Vector, VectorZero, matrix_to_vector
 from sympy.matrices import ImmutableMatrix, Matrix
-from sympy.integrals import integrate, Integral, normalize_integral
+from sympy.integrals import integrate, Integral
 from sympy.series.limits import limit, Limit
 from sympy.concrete.summations import summation, Sum
 from sympy.sets import *
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction
 from sympy.functions import *
 from sympy.simplify.fu import TR1, TR2, TR6, TR11, TR22
+from sympy.simplify.simplify import normalize_calc
 from sympy.simplify import logcombine, powsimp, powdenest, radsimp, trigsimp
 from sympy.geometry.polygon import rad
 from sympy.polys import factor, together, cancel
