@@ -60,8 +60,8 @@ def eval_math_async(func, expr, timeout):
     p.join(timeout)  # Abort process after timeout seconds.
     t1 = time.time()
     if t1 - t0 > timeout:
-        app.logger.error(f'timeout {timeout} reached')
-        result = {'error': f'Timeout for sympy-service of {timeout} seconds exceeded.'};
+        app.logger.error('timeout ' + str(timeout) + ' reached')
+        result = {'error': 'Timeout for sympy-service of ' + str(timeout) + ' seconds exceeded.'}
     p.kill()
     return result
 
