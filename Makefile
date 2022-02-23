@@ -1,7 +1,7 @@
 default: run
 
 run:
-	python3 flask_app.py
+	gunicorn flask_app:app --log-file -
 
 install:
 	pip3 install -r requirements-lambda.txt --target ./package
