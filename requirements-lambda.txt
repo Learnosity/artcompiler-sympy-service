@@ -1,4 +1,4 @@
-Flask==2.1.1
+Flask==2.2.5
 Flask-HTTPAuth==3.3.0
 gunicorn==19.9.0
 jsonify==0.5
