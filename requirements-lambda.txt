@@ -6,3 +6,4 @@ mpmath==1.1.0
 git+https://github.com/meganly/sympy@7880910a57540ef09c6e9323c23652f14962ec43#egg=sympy
 Pint==0.18
 Werkzeug==2.2.3
+setuptools==75.1.0
