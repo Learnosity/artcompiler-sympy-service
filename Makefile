@@ -20,7 +20,7 @@ init: install zip
 		--policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole || true
 	aws lambda create-function \
 		--function-name sympy-service \
-		--runtime python3.8 \
+		--runtime python3.12 \
 		--handler lambda_function.handler \
 		--zip-file fileb://function.zip \
 		--role arn:aws:iam::534897478838:role/lambda-sympy-service || true
