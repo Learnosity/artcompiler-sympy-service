@@ -5,5 +5,5 @@ jsonify==0.5
 mpmath==1.3.0
 -e git+https://github.com/meganly/sympy@7880910a57540ef09c6e9323c23652f14962ec43#egg=sympy
 Pint==0.18
-Werkzeug==2.2.3
+Werkzeug==3.0.3
 setuptools==75.1.0
